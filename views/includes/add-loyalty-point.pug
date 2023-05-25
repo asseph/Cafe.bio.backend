@@ -1,0 +1,26 @@
+
+
+scripts
+    script(type="text/javascript").
+        function validateAndSubmit() {
+            if (document.forms["add-loyalty-point"].reportValidity()){
+                document.forms["add-loyalty-point"].submit();
+            } else {
+                const inputs = document.querySelectorAll(".panel-input");
+                // Marks the required fields with a red border
+                inputs.forEach( input => {
+                    input.classList.add("input--validity-visible");
+                });
+            }
+        }
+div(class="panel clearfix")
+    h4(class="panel-title") Check in to earn points
+    p Add your loyalty account number to collect #{loyaltyAccumulateInfo.eligiblePoint} points.
+    form(id="add-loyalty-point" action='/order-confirmation/add-loyalty-point', method='post')
+        div(class="panel-field")
+            input(class="panel-input", name="phoneNumber",type="tel", placeholder="Phone Number(10 digits): 0000000000", pattern="[0-9]{3}[0-9]{3}[0-9]{4}" autocomplete="tel", required)
+        input(name='orderId', type='hidden', value=orderInfo.orderId)
+        input(name='locationId', type='hidden', value=orderInfo.locationId)
+        input(name='idempotencyKey', type='hidden', value=idempotencyKey)
+    div(class="panel-field")
+        button(class="form-button" type="button" onclick="validateAndSubmit()") Check in

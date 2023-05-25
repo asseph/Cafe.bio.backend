@@ -1,0 +1,43 @@
+
+div(class="panel clearfix")
+    h4(class="panel-title") Order Summary
+    div(class="line-items")
+        each item in orderInfo.lineItems
+            div(class="line-item clearfix")
+                div(class="left") #{item.quantity} × #{item.name}
+                div(class="right")
+                    strong $#{item.grossSalesMoney}
+        if orderInfo.totalServiceChargeMoney > 0
+            div(class="clearfix")
+                div(class="left") Delivery Fee
+                div(class="right")
+                    strong $#{orderInfo.totalServiceChargeMoney}
+        if orderInfo.totalDiscountMoney > 0
+            each discount in orderInfo.discounts
+                div(class="clearfix")
+                    div(class="left") #{discount.name}
+                    div(class="right green")
+                        strong -$#{discount.appliedDiscountMoney}
+    div(class="line-items")
+        div(class="clearfix")
+                div(class="left") Subtotal 
+                div(class="right")
+                    strong $#{orderInfo.preTaxTotalMoney}
+        div(class="clearfix")
+            div(class="left") Tax
+            div(class="right")
+                strong $#{orderInfo.totalTaxMoney}
+        div(class="line-item clearfix")
+            div(class="left")
+                strong Total
+            div(class="right tabular-figures")
+                strong $#{orderInfo.totalMoney}
+    div(class="clearfix")
+        div(class="left")
+            strong Total
+        div(class="right tabular-figures")
+            strong $#{orderInfo.totalMoney}
+    if orderInfo.card
+        div(class="order-extra-info") #{orderInfo.card.cardBrand} #{orderInfo.card.last4}
+    if loyaltyAccumulateInfo && loyaltyAccumulateInfo.accumulatePoints
+        div(class="order-extra-info green") You've earned #{loyaltyAccumulateInfo.accumulatePoints.points} points

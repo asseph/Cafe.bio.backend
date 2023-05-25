@@ -1,0 +1,38 @@
+
+
+extends ../layout
+block append styles
+    link(rel='stylesheet', href='../stylesheets/checkout.css')
+    link(rel='stylesheet', href='/stylesheets/sq-payment.css')
+block append scripts
+    - let productionUrl = "https://web.squarecdn.com/v1/square.js";
+    - let sandBoxUrl = "https://sandbox.web.squarecdn.com/v1/square.js";
+    - let paymentFormSrc = process.env.NODE_ENV === "sandbox" ? sandBoxUrl : productionUrl;
+    script(type="text/javascript" src=paymentFormSrc)
+    script(type="text/javascript").
+        window.applicationId= "#{applicationId}";
+        window.locationId= "#{locationInfo.id}";
+
+    
+block content
+        h1(class="page-title") Review &amp; Complete Your Order
+        span(id="message")
+        div(class="tab-content")
+            form(id="payment-form" action='/checkout/payment', method='post')
+              div(class="panel panel-left")
+                h4(class="panel-title") Payment Details
+                div(id="card-container")
+                input(name='orderId', id='orderId', type='hidden', value=orderInfo.orderId)
+                input(name='locationId', id='locationId', type='hidden', value=orderInfo.locationId)
+                input(name='idempotencyKey', id='idempotencyKey', type='hidden', value=idempotencyKey)
+            div(class="order-summary")
+                include ../includes/order-summary.pug
+                if orderInfo.isPickup
+                    include ../includes/pickup-details.pug
+                else
+                    include ../includes/delivery-details.pug
+                if (loyaltyRewardInfo.showRewardOption)
+                    include ../includes/loyalty-panel.pug
+                button(id="sq-creditcard" class="form-button" type="button") Pay with Card
+        script(type="text/javascript" src="/js/sq-card-pay.js")
+        script(type="text/javascript" src="/js/sq-payment-flow.js")

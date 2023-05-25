@@ -1,0 +1,17 @@
+
+
+extends layout
+block append styles  
+  link(rel='stylesheet', href='/stylesheets/checkout.css')
+block content
+  div(class="tab") 
+    h1(class="page-title") Order Status
+    div(class="tab-content")
+      if orderInfo.isPickup
+        include includes/pickup-confirmation.pug
+      else
+        include includes/delivery-confirmation.pug
+      div(class="order-summary")
+        include includes/order-summary.pug
+        if loyaltyAccumulateInfo.isEligibleForAccruePoint
+          include includes/add-loyalty-point.pug

@@ -1,0 +1,27 @@
+
+extends ../layout
+block append styles
+    link(rel='stylesheet', href='../stylesheets/checkout.css')
+block content
+    script(type="text/javascript").
+        function validateAndSubmit() {
+            if (document.forms["pickup-details-form"].reportValidity()) {
+                document.forms["pickup-details-form"].submit();
+            } else {
+                const inputs = document.querySelectorAll(".panel-input");
+                // Marks the required fields with a red border
+                inputs.forEach((input) => {
+                input.classList.add("input--validity-visible");
+                });
+            }
+        }
+    h1(class="page-title") Add Pickup Details
+    div(class="tab-content")
+        form(id="pickup-details-form" action='/checkout/add-pickup-details', method='post')
+            include ../includes/pickup-info-input.pug
+            input(name='orderId', type='hidden', value=orderInfo.orderId)
+            input(name='locationId', type='hidden', value=orderInfo.locationId)
+            input(name='idempotencyKey', type='hidden', value=idempotencyKey)
+        div(class="order-summary")
+            include ../includes/order-summary.pug
+            button(class="form-button" type="button" onclick="validateAndSubmit()") Continue To Payment

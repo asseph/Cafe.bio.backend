@@ -1,0 +1,25 @@
+
+
+div(class="panel panel-left")
+  h4(class="panel-title") Delivery Details
+  div(class="line-item line-items clearfix address confirmation")
+    div(class="left") Order Id
+    div(class="right")
+      div #{orderInfo.orderId}
+  div(class="line-item line-items clearfix address confirmation")
+    div(class="left") Order Status
+    div(class="right")
+      div #{orderInfo.fulfillmentState}
+  div(class="line-item line-items clearfix address confirmation")
+    div(class="left") Recipient Name
+    div(class="right")
+      div #{orderInfo.recipientName}
+  div(class="line-item line-items clearfix address confirmation")
+    div(class="left") Expected Delivery Time
+    div(class="right") 
+      div #{orderInfo.deliveryTime}
+  div(class="clearfix address")
+    div(class="left") Deliver To
+    div(class="right")
+      div #{orderInfo.deliveryAddress}
+      div #{orderInfo.deliveryCityAndPostalCode}

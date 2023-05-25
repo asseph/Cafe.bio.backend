@@ -1,0 +1,32 @@
+
+
+extends layout
+block append styles
+  link(rel='stylesheet', href='/stylesheets/products.css')
+block append scripts
+  script(type='text/javascript' src="/js/products-page.js")
+block content
+  div(class="products")
+    each item in items
+      div(id=item.itemObjectId ,class='product',data-toggle="modal",data-target="#modal"+item.itemObjectId)
+        div(class='image-container',onclick="openModal(this)")
+          img(class='product-image',src=item.imageUrl)
+          div(class='image-overlay')
+            button View Details
+        div(id="modal-"+item.itemObjectId, class="modal clearfix")
+          button(class='close', onclick="onCloseModalClick()") Close
+          img(class='modal-image',src=item.imageUrl)
+          div(class='product-info')
+            h2(class='product-title') #{item.name}
+            p(class='product-description') #{item.description}
+            div(class='product-meta')
+              h2(class='productCost')
+                span(class="green") $#{item.price}
+              form(action='create-order', method='post')
+                input(name='itemVarId',type='hidden',value=item.defaultVariationId,style='display: none')
+                input(name='itemId',type='hidden',value=item.itemObjectId,style='display: none')
+                input(name='locationId',type='hidden',value=locationInfo.id,,style='display: none')
+                input(name='itemQuantity',type='hidden',value=1,,style='display: none')
+                button(type='submit',class="product-purchase") Buy This
+
+  div(id="veil" class="veil")
