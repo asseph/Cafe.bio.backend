@@ -1,0 +1,20 @@
+
+scripts
+    script(type="text/javascript").
+        function validateAndSubmit(rewardId) {
+            document.getElementById("rewardTierId").value = rewardId;
+            document.forms["select-loyalty-reward"].submit();
+        }
+h4(class="panel-title") Redeem rewards
+form(id="select-loyalty-reward" action='/checkout/redeem-loyalty-reward', method='post')
+    div(class="panel-field")
+        each rewardTier in loyaltyRewardInfo.availableRewardTiers
+            button(class="reward-button" type="button" onclick=`validateAndSubmit("${rewardTier.id}")`) #{rewardTier.name} for #{rewardTier.points} points
+        each rewardTier in loyaltyRewardInfo.unavailableRewardTiers
+            button(class="reward-button" disabled type="button") #{rewardTier.name} for #{rewardTier.points} points
+    input(name='orderId', type='hidden', value=orderInfo.orderId)
+    input(name='locationId', type='hidden', value=orderInfo.locationId)
+    input(name='idempotencyKey', type='hidden', value=idempotencyKey)
+    input(name='loyaltyAccountId', type='hidden', value=loyaltyRewardInfo.loyaltyAccountId)
+    input(id='rewardTierId', name='rewardTierId', type='hidden')
+div(class="bottom-label") #{loyaltyRewardInfo.balance} points available

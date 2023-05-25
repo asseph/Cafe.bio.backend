@@ -1,0 +1,7 @@
+
+
+div(class="panel clearfix")
+    if (!loyaltyRewardInfo.loyaltyAccountId)
+        include ./attach-loyalty-account.pug
+    else
+        include ./redeem-loyalty-reward.pug

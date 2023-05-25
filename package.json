@@ -1,0 +1,26 @@
+{
+  "name": "cafe.bio",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon --exec node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "debug": "*",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.1.0",
+    "express": "*",
+    "morgan": "*",
+    "pug": "^3.0.2",
+    "request": "^2.88.0",
+    "serve-favicon": "*",
+    "square": "^26.0.0",
+    "tslib": "^2.3.1",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

@@ -1,0 +1,14 @@
+
+
+div(class="panel")
+    h4(class="panel-title") Pickup Details
+    div(class="line-items")
+        div(class="line-item clearfix address")
+            div(class="left") Location
+            div(class="right")
+                div #{locationInfo.storeName}
+                div #{locationInfo.addressLine}
+                div #{locationInfo.cityStateZip}
+    div(class="clearfix")
+        div(class="left") Time
+        div(class="right") #{orderInfo.pickupTime}
